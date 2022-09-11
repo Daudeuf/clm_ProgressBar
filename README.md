@@ -4,8 +4,6 @@ Hello, today I make available to everyone a port of TimerBar 2 created by Rootca
 
 Original link: https://github.com/root-cause/ragemp-timerbars
 
-![image|503x289](upload://3hPOeZNFtiOs0jOuLV2sIEs9pAV.jpeg)
-
 **Installation**
 
 1. Download the script. (https://github.com/Daudeuf/clm_TimerBar)
@@ -129,7 +127,3 @@ Func.lib.BarTimerBar.setProgress(Number) -- Set the current bar progress percent
 Func.lib.BarTimerBar.setBackgroundColor({R, G, B, A}) -- Set the bar color
 Func.lib.BarTimerBar.setForegroundColor({R, G, B, A}) -- Set the empty bar color
 ```
-
-**Screenshot of the example**
-![image|375x238](upload://wX5Cu0lq4qCcvsjTBkiJxsY3nSh.jpeg)
-![image|364x194](upload://kbewUD77spLz99jFDGwmmg7R9uV.jpeg)
