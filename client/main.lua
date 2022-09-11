@@ -139,8 +139,10 @@ Citizen.CreateThread(function()
             local drawY = BusyspinnerIsOn() and CAS.initialBusySpinnerY or CAS.initialY
 
             for i=1, Max, 1 do
-                timerBarPool[i].Func.InternalDraw(drawY, timerBarPool[i]._Type)
-                drawY = drawY - (timerBarPool[i]._thin and CAS.timerBarThinMargin or CAS.timerBarMargin)
+                if timerBarPool[i] then
+                    timerBarPool[i].Func.InternalDraw(drawY, timerBarPool[i]._Type)
+                    drawY = drawY - (timerBarPool[i]._thin and CAS.timerBarThinMargin or CAS.timerBarMargin)
+                end
             end
 
             ResetScriptGfxAlign()
@@ -150,19 +152,19 @@ end)
 
 exports("GetAPI", function()
     return {
-        add = function(Type, title, text, numCheckPoints, progress)
-            local ValidBar = exports["clm_ProgressBar"]:TimerBarBase(title, text, numCheckPoints, progress, Type)
+        add = function(Type, title, text, numCheckPoints)
+            local ValidBar = exports["clm_ProgressBar"]:TimerBarBase(Type, title, text, numCheckPoints)
             table.insert(timerBarPool, ValidBar)
             for i=1, #timerBarPool, 1 do
                 if timerBarPool[i]._id == ValidBar._id then return timerBarPool[i] end
             end
         end,
-        has = function(timerBar)
-            return timerBarPool[timerBar] ~= nil
-        end,
-        remove = function(timerBar)
-            if timerBar < 1 then return end
-            table.remove(timerBarPool, timerBar)
+        remove = function(_id)
+            for i=1, #timerBarPool, 1 do
+                if timerBarPool[i]._id == _id then
+                    timerBarPool[i] = nil
+                end
+            end
         end,
         clear = function()
             timerBarPool = {}

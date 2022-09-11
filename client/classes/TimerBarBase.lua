@@ -1,4 +1,4 @@
-exports("TimerBarBase", function(title, text, numCheckpoints, progress, Type)
+exports("TimerBarBase", function(Type, title, text, numCheckpoints)
     local CAS = exports["clm_ProgressBar"]:GetCoordsAndSizes()
 
     local self = {
@@ -10,9 +10,9 @@ exports("TimerBarBase", function(title, text, numCheckpoints, progress, Type)
         _failedColor = {0, 0, 0, 255},
         _checkpointStates = {},
         _numCheckpoints = numCheckpoints ~= nil and exports["clm_ProgressBar"]:clamp(numCheckpoints, 0, 16) or nil,
-        _title = title,
+        _title = title or "",
         _highlightColor = nil,
-        _text = text,
+        _text = text or "",
         titleDrawParams = {
             font = 0,
             color = {240, 240, 240, 255},
@@ -36,14 +36,14 @@ exports("TimerBarBase", function(title, text, numCheckpoints, progress, Type)
         _fgColor = {240, 240, 240, 255},
         _fgWidth = 0.0,
         _fgX = 0.0,
-        progress = progress,
+        progress = 0.0,
         Func = {}
     }
 
     self._titleGxtName = "TMRB_TITLE_"..self._id
-    AddTextEntry(self._titleGxtName, title)
+    AddTextEntry(self._titleGxtName, title or "")
     self._textGxtName = "TMRB_TEXT_"..self._id
-    AddTextEntry(self._textGxtName, text)
+    AddTextEntry(self._textGxtName, text or "")
 
     local Func = {
         lib = {
@@ -65,10 +65,10 @@ exports("TimerBarBase", function(title, text, numCheckpoints, progress, Type)
                     self.textDrawParams.color = exports["clm_ProgressBar"]:getColorFromValue(value)
                 end,
         
-                setColor = function(value)
-                    self.titleColor = value
-                    self.textColor = value
-                end,
+                --setColor = function(value)
+                --    self.titleColor = value
+                --    self.textColor = value
+                --end,
 
                 draw = function(y)
                     self.Func.draw(y)
